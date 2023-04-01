@@ -1,0 +1,62 @@
+version: "3.6"
+
+services:
+  main_server:
+    container_name: ${PROJECT_NAME}
+    environment:
+      - DOCKER_USER=${USER}
+      - USER=${USER}
+      - DOCKER_USER_ID=${USER_ID}
+      - DOCKER_GRP=${GRP}
+      - DOCKER_GRP_ID=${GRP_ID}
+      - ENV=dev
+    command: /${PROJECT_NAME}/docker/bootstrap.sh
+    ports:
+      - "3000:3000"
+    volumes:
+      - ${ROOT_DIR}:/${PROJECT_NAME}
+      - /data/:/data/
+    image: ${DOCKER_IMAGE}
+    privileged: true
+    tty: true
+    # links:
+    #   # - pgsql
+    #   # - mongo
+    #   # - mysql
+    # depends_on:
+    #   # - pgsql
+    #   # - mongo
+    #   # - mysql
+    restart: always
+  # mongo:
+  #   image: "mongo:3.4.2"
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - /mongo-data:/data/db
+  #   restart: always
+  # pgsql:
+  #   image: postgres:12.0-alpine
+  #   volumes:
+  #     - /data/postgresql:/var/lib/postgresql/data/
+  #     - ${ROOT_DIR}:/${PROJECT_NAME}
+  #   environment:
+  #     - POSTGRES_USER=${DB_USER}
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD}
+  #     - POSTGRES_DB=${DB_NAME}
+  #   ports:
+  #     - "5432:5432"
+  #   shm_size: 1g
+  #   command: postgres -c config_file=/${PROJECT_NAME}/conf/postgresql.conf
+  # mysql:
+  #   image: mysql:latest
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+  #     MYSQL_DATABASE: ${DB_NAME}
+  #     MYSQL_USER: ${DB_USER}
+  #     MYSQL_PASSWORD: ${DB_PASSWORD}
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - /data/mysql:/var/lib/mysql

@@ -82,9 +82,8 @@ export function ChatItem(props: {
 }) {
   return (
     <div
-      className={`${styles["chat-item"]} ${
-        props.selected && styles["chat-item-selected"]
-      }`}
+      className={`${styles["chat-item"]} ${props.selected && styles["chat-item-selected"]
+        }`}
       onClick={props.onClick}
     >
       <div className={styles["chat-item-title"]}>{props.title}</div>
@@ -121,7 +120,7 @@ export function ChatList() {
           key={i}
           selected={i === selectedIndex}
           onClick={() => selectSession(i)}
-          onDelete={() => confirm(Locale.Home.DeleteChat) && removeSession(i)}
+          onDelete={() => removeSession(i)}
         />
       ))}
     </div>
@@ -297,25 +296,25 @@ export function Chat(props: {
     .concat(
       isLoading
         ? [
-            {
-              role: "assistant",
-              content: "……",
-              date: new Date().toLocaleString(),
-              preview: true,
-            },
-          ]
+          {
+            role: "assistant",
+            content: "……",
+            date: new Date().toLocaleString(),
+            preview: true,
+          },
+        ]
         : [],
     )
     .concat(
       userInput.length > 0
         ? [
-            {
-              role: "user",
-              content: userInput,
-              date: new Date().toLocaleString(),
-              preview: true,
-            },
-          ]
+          {
+            role: "user",
+            content: userInput,
+            date: new Date().toLocaleString(),
+            preview: true,
+          },
+        ]
         : [],
     );
 
@@ -446,7 +445,7 @@ export function Chat(props: {
                       </div>
                     )}
                   {(message.preview || message.content.length === 0) &&
-                  !isUser ? (
+                    !isUser ? (
                     <LoadingIcon />
                   ) : (
                     <div
@@ -617,16 +616,15 @@ export function Home() {
 
   return (
     <div
-      className={`${
-        config.tightBorder && !isMobileScreen()
-          ? styles["tight-container"]
-          : styles.container
-      }`}
+      className={`${config.tightBorder && !isMobileScreen()
+        ? styles["tight-container"]
+        : styles.container
+        }`}
     >
       <div
         className={styles.sidebar + ` ${showSideBar && styles["sidebar-show"]}`}
       >
-        <div className={styles["sidebar-header"]}>
+        {/* <div className={styles["sidebar-header"]}>
           <div className={styles["sidebar-title"]}>ChatGPT Next</div>
           <div className={styles["sidebar-sub-title"]}>
             Build your own AI assistant.
@@ -634,7 +632,7 @@ export function Home() {
           <div className={styles["sidebar-logo"]}>
             <ChatGptIcon />
           </div>
-        </div>
+        </div> */}
 
         <div
           className={styles["sidebar-body"]}
@@ -667,11 +665,11 @@ export function Home() {
                 }}
               />
             </div>
-            <div className={styles["sidebar-action"]}>
+            {/* <div className={styles["sidebar-action"]}>
               <a href={REPO_URL} target="_blank">
                 <IconButton icon={<GithubIcon />} />
               </a>
-            </div>
+            </div> */}
           </div>
           <div>
             <IconButton
